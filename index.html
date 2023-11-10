@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notion OAuth Redirect</title>
+</head>
+<body>
+    <h1>Notion Authentication Successful</h1>
+    <p>Please wait, processing...</p>
+    <script>
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) == variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            console.log('Query variable %s not found', variable);
+        }
+
+        // 捕获从Notion传递回来的code参数
+        const authCode = getQueryVariable('code');
+
+        if (authCode) {
+            console.log('Authorization code:', authCode);
+
+            // 这里你可以编写更多的逻辑将授权码传递给Chrome插件
+            // 例如，使用window.postMessage或者存储到localStorage
+        } else {
+            document.body.innerHTML = '<p>Authorization failed, no code present in URL query.</p>';
+        }
+    </script>
+</body>
+</html>
